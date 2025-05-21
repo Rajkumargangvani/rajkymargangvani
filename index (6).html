@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lottery 7</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #fefefe;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #ffffff;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: #d63031;
+      margin-bottom: 5px;
+    }
+
+    .subtext {
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .live-indicator {
+      color: #27ae60;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .activity-bar {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 60px;
+      margin-bottom: 20px;
+    }
+
+    .bar {
+      width: 6px;
+      background-color: #d1d1d1;
+      border-radius: 3px;
+      animation: flicker 1.5s infinite ease-in-out;
+    }
+
+    @keyframes flicker {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(0.4); }
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      font-size: 1rem;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #ff4d4d, #ff6666);
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+      cursor: pointer;
+      margin-bottom: 15px;
+      animation: pulse 2s infinite;
+      transition: transform 0.1s ease;
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    @keyframes pulse {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-2px); }
+      100% { transform: translateY(0); }
+    }
+
+    .result {
+      font-size: 1.5rem;
+      font-weight: bold;
+      padding: 15px;
+      border-radius: 10px;
+      min-height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .footer-buttons a {
+      display: inline-block;
+      margin: 5px 10px;
+      text-decoration: none;
+    }
+
+    .footer-buttons button {
+      padding: 10px 15px;
+      font-size: 14px;
+      background-color: #f1f1f1;
+      color: #333;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .footer-buttons button:hover {
+      background-color: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">LOTTERY 7</div>
+    <div class="subtext">Advanced Prediction System</div>
+    <div class="live-indicator">Server Activity • LIVE</div>
+
+    <div class="activity-bar" id="activityBar"></div>
+
+    <input type="text" id="periodInput" placeholder="Enter Period Number" />
+    <button onclick="startPrediction()">🔮 Start Prediction</button>
+
+    <div class="result" id="resultBox"></div>
+
+    <div class="footer-buttons">
+      <a href="https://t.me/+NwLAPdd7ZpZiOGM1" target="_blank">
+        <button>Telegram</button>
+      </a>
+      <a href="http://t.me/RAJBHAI_78" target="_blank">
+        <button>Support</button>
+      </a>
+    </div>
+  </div>
+
+  <audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_72a5a6479f.mp3?filename=button-click-124467.mp3"></audio>
+
+  <script>
+    const resultBox = document.getElementById("resultBox");
+    const activityBar = document.getElementById("activityBar");
+    const periodInput = document.getElementById("periodInput");
+    const clickSound = document.getElementById("clickSound");
+    const usedPeriods = new Set();
+
+    for (let i = 0; i < 20; i++) {
+      const bar = document.createElement("div");
+      bar.className = "bar";
+      bar.style.height = `${20 + Math.random() * 40}px`;
+      bar.style.backgroundColor = Math.random() > 0.5 ? "#d63031" : "#27ae60";
+      activityBar.appendChild(bar);
+    }
+
+    function startPrediction() {
+      clickSound.play();
+      const period = periodInput.value.trim();
+
+      if (!period) {
+        resultBox.textContent = "Enter period number first!";
+        return;
+      }
+
+      if (usedPeriods.has(period)) {
+        resultBox.textContent = "This period number was already used!";
+        return;
+      }
+
+      resultBox.textContent = "Predicting...";
+      resultBox.style.background = "none";
+      resultBox.style.color = "#333";
+      resultBox.style.boxShadow = "none";
+
+      setTimeout(() => {
+        const outcomes = ["BIG", "SMALL", "RED", "GREEN"];
+        const prediction = outcomes[Math.floor(Math.random() * outcomes.length)];
+
+        resultBox.textContent = prediction;
+        resultBox.style.background = "rgba(46, 204, 113, 0.15)";
+        resultBox.style.color = "#2ecc71";
+        resultBox.style.boxShadow = "0 0 20px #2ecc7140";
+
+        usedPeriods.add(period);
+        periodInput.value = "";
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
